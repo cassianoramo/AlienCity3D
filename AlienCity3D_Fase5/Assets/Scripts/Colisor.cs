@@ -2,22 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Colisor : MonoBehaviour {
+	public Text Portao;
+	int countkey = 0;
+	public GameObject door;
+	public Text Vitori;
 
-	// Use this for initialization
 	void Start () {
-		
+		countkey = GameObject.FindGameObjectsWithTag ("Chave").Length;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		
 	}
+
 	void  OnTriggerEnter (Collider other){
 		if  (other.gameObject.CompareTag ( "Obstaculo")) {
 			string currentScene = SceneManager.GetActiveScene ().name;
 			SceneManager.LoadScene (currentScene);
+		}
+		if (other.gameObject.CompareTag("Chave")) {
+			countkey--;
+			Destroy (other.gameObject);
+			if (countkey == 0) {
+				Portao.gameObject.SetActive (true);
+				door.gameObject.SetActive (false);
+			}
+			if (other.gameObject.CompareTag ("Vitoria")) {
+				Vitori.gameObject.SetActive (true);
+			}
 		}
 	}
 }

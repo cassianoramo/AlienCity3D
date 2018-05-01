@@ -8,7 +8,6 @@ public class Colisor : MonoBehaviour {
 	public Text Portao;
 	int countkey = 0;
 	public GameObject door;
-	public Text Vitori;
 
 	void Start () {
 		countkey = GameObject.FindGameObjectsWithTag ("Chave").Length;
@@ -16,7 +15,6 @@ public class Colisor : MonoBehaviour {
 
 	void Update () {
 	}
-
 	void  OnTriggerEnter (Collider other){
 		if  (other.gameObject.CompareTag ( "Obstaculo")) {
 			string currentScene = SceneManager.GetActiveScene ().name;
@@ -28,9 +26,6 @@ public class Colisor : MonoBehaviour {
 			if (countkey == 0) {
 				Portao.gameObject.SetActive (true);
 				door.gameObject.SetActive (false);
-			}
-			if (other.gameObject.CompareTag ("Vitoria")) {
-				Vitori.gameObject.SetActive (true);
 			}
 		}
 	}

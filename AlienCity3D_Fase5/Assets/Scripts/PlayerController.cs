@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour {
@@ -12,9 +13,9 @@ public class PlayerController : MonoBehaviour {
 	protected Vector3 gravidade = Vector3.zero;
 	protected Vector3 move = Vector3.zero;
 	private bool jump = false;
+	public Text Vitori;
+	public Text Portao;
 
-
-	
 	void Start()
 	{
 		cc = GetComponent<CharacterController> ();
@@ -61,6 +62,12 @@ public class PlayerController : MonoBehaviour {
 			{
 				anim.SetTrigger("Corre");
 			}
+		}
+	}
+	void OnTriggerEnter(Collider other){
+		if (other.gameObject.CompareTag ("Vitoria")) {
+			Vitori.gameObject.SetActive (true);
+			Portao.gameObject.SetActive (false);
 		}
 	}
 }

@@ -10,6 +10,7 @@ public class Colisor : MonoBehaviour {
 	public GameObject door;
 	public GameObject Key1;
 	public GameObject Key2;
+	public Slider slidervida;
 
 	void Start () {
 		countkey = GameObject.FindGameObjectsWithTag ("Chave").Length;
@@ -33,4 +34,8 @@ public class Colisor : MonoBehaviour {
 			}
 		}
 	}
+	/*public void Vida (float maxvida, float currentvida){
+		float newPositionSlider = currentvida * 1 / maxvida;
+		slidervida.value = newPositionSlider;
+	}*/
 }

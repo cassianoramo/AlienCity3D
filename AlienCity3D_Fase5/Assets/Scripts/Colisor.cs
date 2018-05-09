@@ -8,6 +8,8 @@ public class Colisor : MonoBehaviour {
 	public Text Portao;
 	int countkey = 0;
 	public GameObject door;
+	public GameObject Key1;
+	public GameObject Key2;
 
 	void Start () {
 		countkey = GameObject.FindGameObjectsWithTag ("Chave").Length;
@@ -23,9 +25,11 @@ public class Colisor : MonoBehaviour {
 		if (other.gameObject.CompareTag("Chave")) {
 			countkey--;
 			Destroy (other.gameObject);
+			Key1.gameObject.SetActive (true);
 			if (countkey == 0) {
 				Portao.gameObject.SetActive (true);
 				door.gameObject.SetActive (false);
+				Key2.gameObject.SetActive (true);
 			}
 		}
 	}

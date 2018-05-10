@@ -19,10 +19,6 @@ public class Colisor : MonoBehaviour {
 	void Update () {
 	}
 	void  OnTriggerEnter (Collider other){
-		if  (other.gameObject.CompareTag ( "Obstaculo")) {
-			string currentScene = SceneManager.GetActiveScene ().name;
-			SceneManager.LoadScene (currentScene);
-		}
 		if (other.gameObject.CompareTag("Chave")) {
 			countkey--;
 			Destroy (other.gameObject);

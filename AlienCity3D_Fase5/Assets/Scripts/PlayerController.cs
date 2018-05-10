@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour {
 	public int startvida = 10;
 	public float vida;
 	public HUDController Energia;
+	int contcoracao = 0;
+	public GameObject Heart;
+	public GameObject Heart1;
+	public GameObject Heart2;
 
 	void Start()
 	{
@@ -25,12 +29,13 @@ public class PlayerController : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		anim.SetTrigger("Parado");
 		vida = startvida;
+		contcoracao = GameObject.FindGameObjectsWithTag ("Vida").Length;
 	}
 
-	void Update()
+     void Update()
 	{
 		Energia.Vida (startvida, vida);
-
+	
 		Vector3 move = Input.GetAxis ("Vertical") * transform.TransformDirection (Vector3.forward) * MoveSpeed;
 		transform.Rotate (new Vector3 (0, Input.GetAxis ("Horizontal") * RotationSpeed * Time.deltaTime, 0));
 		
@@ -49,8 +54,22 @@ public class PlayerController : MonoBehaviour {
 		move += gravidade;
 		cc.Move (move* Time.deltaTime);
 		Anima ();
-		if(Input.GetKeyDown (KeyCode.M )){
-			vida -= 5;
+		if (vida == 0 && contcoracao == 1) {
+			string currentScene = SceneManager.GetActiveScene ().name;
+			SceneManager.LoadScene (currentScene);
+		}
+		if (vida == 0) {
+			contcoracao--;
+			if (contcoracao == 3) {
+				Heart2.SetActive (false);
+			}
+			if (contcoracao == 2) {
+				Heart1.SetActive (false);
+			}
+			if (contcoracao == 1) {
+				Heart.SetActive (false);
+			}
+			vida = 10;
 		}
 	}
 	 
@@ -77,6 +96,9 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Vitoria")) {
 			Vitori.gameObject.SetActive (true);
 			Portao.gameObject.SetActive (false);
+		}
+		if (other.gameObject.CompareTag ("Obstaculo")) {
+			vida -= 5;
 		}
 	}
 }

@@ -15,16 +15,22 @@ public class PlayerController : MonoBehaviour {
 	private bool jump = false;
 	public Text Vitori;
 	public Text Portao;
+	public int startvida = 10;
+	public float vida;
+	public HUDController Energia;
 
 	void Start()
 	{
 		cc = GetComponent<CharacterController> ();
 		anim = GetComponent<Animator>();
 		anim.SetTrigger("Parado");
+		vida = startvida;
 	}
 
 	void Update()
 	{
+		Energia.Vida (startvida, vida);
+
 		Vector3 move = Input.GetAxis ("Vertical") * transform.TransformDirection (Vector3.forward) * MoveSpeed;
 		transform.Rotate (new Vector3 (0, Input.GetAxis ("Horizontal") * RotationSpeed * Time.deltaTime, 0));
 		
@@ -43,6 +49,9 @@ public class PlayerController : MonoBehaviour {
 		move += gravidade;
 		cc.Move (move* Time.deltaTime);
 		Anima ();
+		if(Input.GetKeyDown (KeyCode.M )){
+			vida -= 5;
+		}
 	}
 	 
 	void Anima()

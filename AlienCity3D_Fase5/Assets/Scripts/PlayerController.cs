@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject Heart;
 	public GameObject Heart1;
 	public GameObject Heart2;
+	int countgem = 0;
+	public Text gema;
 
 	void Start()
 	{
@@ -30,12 +32,14 @@ public class PlayerController : MonoBehaviour {
 		anim.SetTrigger("Parado");
 		vida = startvida;
 		contcoracao = GameObject.FindGameObjectsWithTag ("Vida").Length;
+
+		gema.text = "" + countgem;
 	}
 
      void Update()
 	{
 		Energia.Vida (startvida, vida);
-	
+		gema.text = "" + countgem;
 		Vector3 move = Input.GetAxis ("Vertical") * transform.TransformDirection (Vector3.forward) * MoveSpeed;
 		transform.Rotate (new Vector3 (0, Input.GetAxis ("Horizontal") * RotationSpeed * Time.deltaTime, 0));
 		
@@ -99,6 +103,9 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (other.gameObject.CompareTag ("Obstaculo")) {
 			vida -= 5;
+		}
+		if (other.gameObject.CompareTag ("pedra")) {
+			countgem++;
 		}
 	}
 }

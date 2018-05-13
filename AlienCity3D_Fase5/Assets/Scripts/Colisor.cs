@@ -30,8 +30,4 @@ public class Colisor : MonoBehaviour {
 			}
 		}
 	}
-	/*public void Vida (float maxvida, float currentvida){
-		float newPositionSlider = currentvida * 1 / maxvida;
-		slidervida.value = newPositionSlider;
-	}*/
 }

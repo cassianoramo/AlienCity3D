@@ -1,30 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class InstanciaPedras : MonoBehaviour {
+public class InstanciaPedras : NetworkBehaviour {
 
 	public GameObject pedras;
 	public Vector3 PosCriacao;
-	public int ContaPedras;
-	public float EsperaCriacao;
+	//public int ContaPedras;
+	//public float EsperaCriacao;
 
 
-	void Start () {
-		StartCoroutine (SpawnPedras ());
+	void Update() {
+		CmdSpawnPedras ();
 	}
-
-	IEnumerator SpawnPedras ()
+	[Command]
+	void CmdSpawnPedras ()
 	{
-		for (int i = 0; i < ContaPedras; i++)
-		{
-			GameObject ped = pedras;
-			Vector3 spawnPosition = new Vector3 (Random.Range (-PosCriacao.x, PosCriacao.x),PosCriacao.y, Random.Range (-PosCriacao.z, PosCriacao.z));
-			Instantiate (ped, spawnPosition, Quaternion.Euler(270, 0, 0));
-			yield return new WaitForSeconds (EsperaCriacao);
+		RpcSpawnPedras ();
 		}
+	[ClientRpc]
+	void RpcSpawnPedras () {
+
+	GameObject ped = pedras;
+	Vector3 spawnPosition = new Vector3 (Random.Range (-PosCriacao.x, PosCriacao.x),PosCriacao.y, Random.Range (-PosCriacao.z, PosCriacao.z));
+	Instantiate (ped, spawnPosition, Quaternion.Euler(270, 0, 0));
 		
 	}
-
-
-
 }
+
+
+

@@ -29,7 +29,7 @@ public class PlayerController : NetworkBehaviour {
 		if (!isLocalPlayer) {
 			return;
 		}
-var MinhaCam = (GameObject)Instantiate(Cam1, posCamera.transform.localPosition, posCamera.transform.localRotation);
+	var MinhaCam = (GameObject)Instantiate(Cam1, posCamera.transform.localPosition, posCamera.transform.localRotation);
 		var eu = gameObject.transform;
 		NetworkServer.Spawn (Cam1);
 		MinhaCam.transform.parent = eu;
